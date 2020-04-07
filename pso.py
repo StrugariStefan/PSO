@@ -38,7 +38,7 @@ def init(domain: np.array, objective: Callable[[np.array], float],  population_s
     return x, v, p
 
 
-def pso(fitness: Callable[[np.array], float], domain: np.array, w1: float = 0.2, w2: float = 0.2, w3: float = 0.2, population_size: int = 5000, T_MAX = 10) :
+def pso(fitness: Callable[[np.array], float], domain: np.array, w1: float = 0.2, w2: float = 0.2, w3: float = 0.2, population_size: int = 100, T_MAX = 100) :
     x, v, p = init(domain, fitness, population_size = population_size)
 
     g_list = []
@@ -56,7 +56,7 @@ def pso(fitness: Callable[[np.array], float], domain: np.array, w1: float = 0.2,
             v[i] = w1 * v[i] + w2 * np.random.uniform() * (p[i] - x[i]) + w3 * np.random.uniform() * (g - x[i])
             x[i] += v[i]
 
-    return g
+    return g, g_list
 
 
 def get_domain(interval: tuple, dimensions_number: int = 2) -> np.array :
